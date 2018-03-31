@@ -2,7 +2,7 @@
 
 ## How to use
 Make sure you have both [Node.js](https://nodejs.org) and npm installed.
-1. Check your Node.js is ready
+1. Check that your Node.js is ready
 ```
 node -v
 ```
