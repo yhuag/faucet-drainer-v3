@@ -21,20 +21,25 @@ function Options(_address) {
     return options;
 }
 
-function drainer(_address) {
-    for (var i=0;i<MAX_TRIAL;i++){
-        request(Options(_address), function (error, response, body) {
-            if (error) throw new Error(error);
-            console.log(body);
-        });
+// Export module
+module.exports = {
+
+    drainer: async function (_address) {
+        var logs = []
+        for (var i=0;i<MAX_TRIAL;i++){
+            request(Options(_address), function (error, response, body) {
+                if (error) throw new Error(error);
+                logs.push(body);
+            });
+        }
+
+        if (len(logs) == 0){
+            return "Nothing in logs";
+        } else if (len(logs) >= 100) {
+            return logs;
+        } else {
+            return "Error";
+        }
     }
-}
 
-if (process.argv.length <= 2) {
-    console.log("Usage: " + __filename + " ADDRESS");
-    process.exit(-1);
-}
-
-var address = process.argv[2];
-console.log('To: ' + address);
-drainer(address);
+};
