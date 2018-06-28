@@ -4,14 +4,13 @@ var Drain = require("./drain")
 var ethereum_address = require('ethereum-address');
 
 app.get('/', (req, res) => {
-    res.send('To Earn Tokens: Change the URL to .../<your-address>');
+    res.send('To Earn Tokens: Change the URL to .../0x123456789your-address');
 })
 
 app.get('/:address', async (req, res) => {
     var address = req.params.address;
 
     if (ethereum_address.isAddress(address)) {
-        // var logs = ;
         res.send(await Drain.drainer(address));
     }
     else {

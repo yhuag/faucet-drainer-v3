@@ -1,5 +1,5 @@
 var request = require("request");
-var MAX_TRIAL = 1000;
+var MAX_TRIAL = 2;
 
 function Options(_address) {
     var options = { method: 'POST',
@@ -25,17 +25,22 @@ function Options(_address) {
 module.exports = {
 
     drainer: async function (_address) {
+
         var logs = []
         for (var i=0;i<MAX_TRIAL;i++){
-            request(Options(_address), function (error, response, body) {
+            console.log("1");
+            await request(Options(_address), function (error, response, body) {
+                console.log("2");
                 if (error) throw new Error(error);
+                console.log(body);
                 logs.push(body);
             });
         }
 
-        if (len(logs) == 0){
+
+        if (logs.length == 0){
             return "Nothing in logs";
-        } else if (len(logs) >= 100) {
+        } else if (logs.length >= 100) {
             return logs;
         } else {
             return "Error";
@@ -43,3 +48,7 @@ module.exports = {
     }
 
 };
+
+// async function sleep(ms = 0) {
+//     return new Promise(r => setTimeout(r, ms));
+// }
